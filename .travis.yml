@@ -24,6 +24,3 @@ script:
   - npm test
   - ./etc/travis.py
 
-notifications:
-
-webhooks: https://outlook.office.com/webhook/e75ee820-3466-49a6-bb0f-ecae0daf8fe1@72f988bf-86f1-41af-91ab-2d7cd011db47/TravisCI/00abc9d7ce1044818f216da49d30d54d/a38fc8f6-fb60-4169-bde6-dd2bbf01304f
