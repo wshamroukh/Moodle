@@ -30,7 +30,7 @@
             ],
             "defaultValue": "Disabled",
             "metadata": {
-              "description": "High availability mode for azure database for mysql flexible server."
+                "description": "High availability mode for azure database for mysql flexible server."
             },
             "type": "string"
         }
@@ -48,10 +48,10 @@
                     "redisDeploySwitch":            { "value": true },
                     "sshPublicKey":                 { "value": "[parameters('sshPublicKey')]" },
                     "autoscaleVmCountMax":          { "value": 20 },
-		            "autoscaleVmSku":		        { "value": "Standard_DS3_v2" },
+                    "autoscaleVmSku":		        { "value": "Standard_DS3_v2" },
                     "searchType":                   { "value": "elastic" },
                     "dbServerType":                 { "value": "mysqlflex" },
-                    "vnetDbDeploySwitch":           {"value": true },
+                    "vnetDbDeploySwitch":           { "value": true },
                     "mysqlflexSkuName":             { "value": "Standard_D16ds_v4" },
                     "mysqlflexStgIops":             { "value": 5000 },
                     "mysqlflexStgSizeGiB":          { "value": 512 },
@@ -76,6 +76,6 @@
     },
     "variables": {
         "documentation01": "This wrapper template calls the main-template with pre-defined configs for large size workloads (with high availability) and the only required parameter (sshPublicKey).",
-        "documentation02": "For the expected small-to-mid size workloads, other parameters are fixed in this tempalte and overriden as above."
+        "documentation02": "For the expected small-to-mid size workloads, other parameters are fixed in this template and overridden as above."
     }
 }

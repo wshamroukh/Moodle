@@ -30,7 +30,7 @@
             ],
             "defaultValue": "Disabled",
             "metadata": {
-              "description": "High availability mode for azure database for mysql flexible server."
+                "description": "High availability mode for azure database for mysql flexible server."
             },
             "type": "string"
         }
@@ -50,7 +50,7 @@
                     "searchType":                   { "value": "elastic" },
                     "sshPublicKey":                 { "value": "[parameters('sshPublicKey')]" },
                     "dbServerType":                 { "value": "mysqlflex" },
-                    "vnetDbDeploySwitch":           {"value": true },
+                    "vnetDbDeploySwitch":           { "value": true },
                     "mysqlflexSkuName":             { "value": "Standard_E64ds_v4" },
                     "mysqlflexStgIops":             { "value": 10000 },
                     "mysqlflexStgSizeGiB":          { "value": 1024 },
@@ -58,7 +58,7 @@
                     "fileServerType":               { "value": "azurefiles" },
                     "fileServerDiskSize":           { "value": 1024 },
                     "storageAccountType":           { "value": "Premium_LRS" },
-		            "autoscaleVmSku":		        { "value": "Standard_DS3_v2" }
+                    "autoscaleVmSku":		        { "value": "Standard_DS3_v2" }
                 },
                 "templateLink": {
                     "uri": "[concat(parameters('_artifactsLocation'), 'azuredeploy.json', parameters('_artifactsLocationSasToken'))]"
@@ -74,6 +74,6 @@
     },
     "variables": {
         "documentation01": "This wrapper template calls the main-template with maximum configs and the only required parameter (sshPublicKey).",
-        "documentation02": "For the best-possible performance, highly available, and most Moodle features, other parameters are fixed in this tempalte and overriden as above."
+        "documentation02": "For the best-possible performance, highly available, and most Moodle features, other parameters are fixed in this template and overridden as above."
     }
 }
