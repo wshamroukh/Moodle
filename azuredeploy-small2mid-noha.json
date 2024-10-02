@@ -56,6 +56,6 @@
     },
     "variables": {
         "documentation01": "This wrapper template calls the main-template with pre-defined configs for small-to-mid size workloads (without high availability) and the only required parameter (sshPublicKey).",
-        "documentation02": "For the expected small-to-mid size workloads, other parameters are fixed in this tempalte and overriden as above."
+        "documentation02": "For the expected small-to-mid size workloads, other parameters are fixed in this template and overridden as above."
     }
 }
