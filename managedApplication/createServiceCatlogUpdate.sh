@@ -1,5 +1,5 @@
 # This script will create a Managed Application from the Azure/Moodle ARM template
-# see https://github.com/Azure/Moodle/tree/master/managedApplication
+# see https://github.com/wshamroukh/moodle/tree/master/managedApplication
 
 # Application Configuration
 

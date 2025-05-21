@@ -55,7 +55,7 @@ class DeploymentTester:
         print('\nChecking configuration...')
         if not self.config.is_valid():
             print('No Azure deployment info given, skipping test deployment and exiting.')
-            print('Further information: https://github.com/Azure/Moodle#automated-testing-travis-ci')
+            print('Further information: https://github.com/wshamroukh/moodle#automated-testing-travis-ci')
             sys.exit()
         artifacts_location = self.config.deployment_properties['parameters']['_artifactsLocation']
         print('- Detected "_artifactsLocation": ' + artifacts_location['value'])

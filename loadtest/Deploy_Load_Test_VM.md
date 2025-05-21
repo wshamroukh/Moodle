@@ -66,7 +66,7 @@ echo $ipAddress
 We can now connect to the VM using ssh, and run commands. The first thing we want to do is pull down the Moodle on Azure repo. Since this document is used to automatically run tests all our commands need to be non-interactive. We will therefore skip the host key validation step. Note that you should never do this in a production environment (remove `-o StrictHostKeyChecking=no`):
 
 ``` bash
-ssh -o StrictHostKeyChecking=no $ipAddress "rm -Rf Moodle; git clone git://github.com/Azure/Moodle.git"
+ssh -o StrictHostKeyChecking=no $ipAddress "rm -Rf Moodle; git clone git://github.com/wshamroukh/moodle.git"
 ```
 
 Now we can install the load testing scripts, we will have these loaded
