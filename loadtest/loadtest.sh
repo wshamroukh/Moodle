@@ -92,7 +92,7 @@ function deploy_moodle_with_some_parameters
     local template_url=${2}     # Github URL of the top template to deploy
     local parameters_template_file=${3} # Local parameter template file
     local web_server_type=${4}  # E.g., apache or nginx
-    local web_vm_sku=${5}       # E.g., Standard_DS2_v2
+    local web_vm_sku=${5}       # E.g., Standard_B2als_v2
     local db_server_type=${6}   # E.g., mysql or postgres
     local db_vcores=${7}        # 1, 2, 4, 8, 16, 32 only
     local db_size_gb=${8}       # 5 to 1024, integer only
@@ -325,12 +325,12 @@ function run_load_test_example
 {
     check_ssh_agent_and_added_key || return 1
 
-    deploy_run_test1_teardown ltest6 southcentralus https://raw.githubusercontent.com/Azure/Moodle/master/azuredeploy.json azuredeploy.parameters.loadtest.defaults.json apache Standard_DS2_v2 mysql 4 125 nfs 2 128 false "$(cat ~/.ssh/authorized_keys)" 1600 4800 18000
+    deploy_run_test1_teardown ltest6 southcentralus https://raw.githubusercontent.com/Azure/Moodle/master/azuredeploy.json azuredeploy.parameters.loadtest.defaults.json apache Standard_B2als_v2 mysql 4 125 nfs 2 128 false "$(cat ~/.ssh/authorized_keys)" 1600 4800 18000
 }
 
 function run_load_test_postgres
 {
     check_ssh_agent_and_added_key || return 1
 
-    deploy_run_test1_teardown pgres southcentralus https://raw.githubusercontent.com/Azure/Moodle/master/azuredeploy.json azuredeploy.parameters.loadtest.defaults.json apache Standard_DS2_v2 postgres 16 256 nfs 2 128 false "$(cat ~/.ssh/authorized_keys)" 800 2400 36000
+    deploy_run_test1_teardown pgres southcentralus https://raw.githubusercontent.com/Azure/Moodle/master/azuredeploy.json azuredeploy.parameters.loadtest.defaults.json apache Standard_B2als_v2 postgres 16 256 nfs 2 128 false "$(cat ~/.ssh/authorized_keys)" 800 2400 36000
 }

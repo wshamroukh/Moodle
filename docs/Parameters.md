@@ -229,7 +229,7 @@ Type: string
 
 Possible Values: null
 
-Default: Standard_DS1_v2
+Default: Standard_B2als_v2
 
 
 ### webServerType
@@ -251,7 +251,7 @@ Type: string
 
 Possible Values: null
 
-Default: Standard_DS2_v2
+Default: Standard_B2als_v2
 
 
 ### autoscaleVmCountMax
@@ -482,7 +482,7 @@ Type: string
 
 Possible Values: null
 
-Default: Standard_DS2_v2
+Default: Standard_B2als_v2
 
 
 ### keyVaultResourceId
@@ -680,7 +680,7 @@ Type: string
 
 Possible Values: null
 
-Default: Standard_DS2_v2
+Default: Standard_B2als_v2
 
 
 ### tikaVmSku
@@ -691,7 +691,7 @@ Type: string
 
 Possible Values: null
 
-Default: Standard_DS2_v2
+Default: Standard_B2als_v2
 
 
 ### customVnetId

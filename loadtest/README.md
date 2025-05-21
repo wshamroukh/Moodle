@@ -37,7 +37,7 @@ ssh $ipAddress "az login --username $AZURE_LOGIN --password $AZURE_PASSWORD; az 
 Running this example will deploy a cluster with the following configuration:
 
 * Apache web server
-* Standard_DS2_v2 Azure VM SKU
+* Standard_B2als_v2 Azure VM SKU
 * mysql database (with 200 DTU and 125GB DB size)
 * NFS file share (with 2 disks and 128GB disk size each)
 * uses your SSH pub key in `~/.ssh/id_rsa`
