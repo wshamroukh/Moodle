@@ -43,7 +43,7 @@ The Moodle Azure Resource Manager template is hosted on GitHub. We'll
 checkout the template into our workspace.
 
 ```
-git clone git@github.com:Azure/Moodle.git $MOODLE_AZURE_WORKSPACE/arm_template
+git clone git@github.com:wshamroukh/moodle.git $MOODLE_AZURE_WORKSPACE/arm_template
 ```
 
 # Validation
