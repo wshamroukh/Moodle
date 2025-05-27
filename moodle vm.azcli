@@ -1,0 +1,81 @@
+rg='moodle'
+location='centralindia'
+vm_name='moodle'
+vnet_name='moodle-vnet'
+vnet_address='10.10.0.0/16'
+vm_subnet_name='vm-subnet'
+vm_subnet_address='10.10.0.0/24'
+vm_size=Standard_B4als_v2
+admin_username=$(whoami)
+
+moodle_cloudinit=moodle_cloudinit.sh
+cat <<EOF > $moodle_cloudinit
+#!/bin/sh
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y apache2 php php-fpm php-cli php-curl php-gd php-intl php-mysql php-xml php-xmlrpc php-ldap php-zip php-soap php-mbstring certbot python3-certbot-apache
+sudo sed -i -E \
+-e 's/^\s*memory_limit\s*=.*/memory_limit = 256M/' \
+-e 's/^\s*upload_max_filesize\s*=.*/upload_max_filesize = 100M/' \
+-e 's/^\s*post_max_size\s*=.*/post_max_size = 100M/' \
+-e 's/^\s*max_execution_time\s*=.*/max_execution_time = 300/' \
+-e 's/^\s*max_input_time\s*=.*/max_input_time = 300/' \
+-e 's/^\s*max_input_vars\s*=.*/max_input_vars = 5000/' \
+/etc/php/8.3/apache2/php.ini
+sudo systemctl start apache2 && sudo systemctl enable apache2 && sudo systemctl status apache2
+
+# download moodle repo
+cd /opt
+sudo git clone git://git.moodle.org/moodle.git
+cd moodle
+sudo git branch --track MOODLE_500_STABLE origin/MOODLE_500_STABLE
+sudo git checkout MOODLE_500_STABLE
+
+# Moodle configurations
+sudo mv /opt/moodle /var/www/html/
+sudo chown -R www-data:www-data /var/www/html/moodle
+sudo chmod -R 755 /var/www/html/moodle
+
+sudo mkdir /var/moodledata
+sudo chown -R www-data:www-data /var/moodledata
+sudo chmod -R 0777 /var/moodledata
+
+sudo tee /etc/apache2/sites-available/moodle.conf > /dev/null <<EOT
+<VirtualHost *:80>
+    ServerAdmin admin@waddahs.site
+    DocumentRoot /var/www/html/moodle
+    ServerName moodle.waddahs.site
+
+    <Directory /var/www/html/moodle>
+        Options FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog \${APACHE_LOG_DIR}/moodle_error.log
+    CustomLog \${APACHE_LOG_DIR}/moodle_access.log combined
+</VirtualHost>
+EOT
+
+sudo a2ensite moodle.conf
+sudo a2enmod rewrite
+sudo systemctl reload apache2
+sudo systemctl restart apache2
+EOF
+
+# resource group
+echo -e "\e[1;36mCreating Resource Group $rg...\e[0m"
+az group create -n $rg -l $location -o none
+
+# vnet
+echo -e "\e[1;36mCreating VNet $vnet_name...\e[0m"
+az network vnet create -g $rg -n $vnet_name --address-prefixes $vnet_address --subnet-name $vm_subnet_name --subnet-prefixes $vm_subnet_address -o none
+
+# vm
+echo -e "\e[1;36mCreating $vm_name VM...\e[0m"
+az network public-ip create -g $rg -n $vm_name --allocation-method Static --sku Basic -o none
+az network nic create -g $rg -n $vm_name --subnet $vm_subnet_name --vnet-name $vnet_name --private-ip-address 10.10.0.4 --public-ip-address $vm_name -o none
+az vm create -g $rg -n $vm_name --image Ubuntu2404 --nics $vm_name --os-disk-name $vm_name --size $vm_size --admin-username $admin_username --generate-ssh-keys --custom-data $moodle_cloudinit -o none
+# vm details
+moodle_public_ip=$(az network public-ip show -g $rg -n $vm_name --query 'ipAddress' -o tsv | tr -d '\r') && echo $vm_name public ip address: $moodle_public_ip
+moodle_vm_ip=$(az network nic show -g $rg -n $vm_name --query ipConfigurations[].privateIPAddress -o tsv | tr -d '\r') && echo $vm_name private ip: $moodle_vm_ip
+rm $moodle_cloudinit
